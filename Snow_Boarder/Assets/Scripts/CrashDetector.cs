@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class CrashDetector : MonoBehaviour
 {
     [SerializeField] float loadDelay;
+    [SerializeField] ParticleSystem crashEffect;
 
     CircleCollider2D playerHead;
 
@@ -17,7 +18,10 @@ public class CrashDetector : MonoBehaviour
     void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.CompareTag("Ground") && playerHead.IsTouching(other.collider))
+        {
+            crashEffect.Play();
             Invoke("ReloadScene", loadDelay);
+        }
     }
 
     private void ReloadScene()
