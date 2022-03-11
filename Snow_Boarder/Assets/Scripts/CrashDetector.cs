@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class CrashDetector : MonoBehaviour
 {
+    [SerializeField] float loadDelay;
+
     CircleCollider2D playerHead;
 
     void Start()
@@ -15,6 +17,11 @@ public class CrashDetector : MonoBehaviour
     void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.CompareTag("Ground") && playerHead.IsTouching(other.collider))
-            SceneManager.LoadScene(0);
+            Invoke("ReloadScene", loadDelay);
+    }
+
+    private void ReloadScene()
+    {
+        SceneManager.LoadScene(0);
     }
 }
