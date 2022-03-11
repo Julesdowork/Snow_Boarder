@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CrashDetector : MonoBehaviour
 {
@@ -14,6 +15,6 @@ public class CrashDetector : MonoBehaviour
     void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.CompareTag("Ground") && playerHead.IsTouching(other.collider))
-            Debug.Log("OUCH! You bonked your head!");
+            SceneManager.LoadScene(0);
     }
 }
