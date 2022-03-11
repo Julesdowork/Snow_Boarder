@@ -8,6 +8,7 @@ public class CrashDetector : MonoBehaviour
     [SerializeField] float loadDelay;
     [SerializeField] ParticleSystem crashEffect;
     [SerializeField] AudioClip crashSound;
+    bool hasCrashed = false;
 
     CircleCollider2D playerHead;
 
@@ -18,8 +19,9 @@ public class CrashDetector : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Ground") && playerHead.IsTouching(other.collider))
+        if (other.gameObject.CompareTag("Ground") && playerHead.IsTouching(other.collider) && !hasCrashed)
         {
+            hasCrashed = true;
             FindObjectOfType<PlayerController>().DisableControls();
             crashEffect.Play();
             GetComponent<AudioSource>().PlayOneShot(crashSound);
