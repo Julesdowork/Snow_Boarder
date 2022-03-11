@@ -20,6 +20,7 @@ public class CrashDetector : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Ground") && playerHead.IsTouching(other.collider))
         {
+            FindObjectOfType<PlayerController>().DisableControls();
             crashEffect.Play();
             GetComponent<AudioSource>().PlayOneShot(crashSound);
             Invoke("ReloadScene", loadDelay);
